@@ -1,0 +1,32 @@
+{
+    "name": "CadQuery para Arquitetos",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+
+    // Instala o ambiente pixi automaticamente ao criar o codespace
+    "postCreateCommand": "pixi install",
+
+    // Extensões VS Code instaladas automaticamente
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-toolsai.jupyter",
+                "bernhard-42.ocp-cad-viewer"
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/root/.pixi/envs/default/bin/python"
+            }
+        }
+    },
+
+    // Expõe a porta do OCP CAD Viewer
+    "forwardPorts": [3939],
+    "portsAttributes": {
+        "3939": {
+            "label": "OCP CAD Viewer",
+            "onAutoForward": "silent"
+        }
+    }
+}
