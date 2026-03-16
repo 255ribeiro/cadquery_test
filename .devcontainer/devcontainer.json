@@ -4,10 +4,8 @@
         "dockerfile": "Dockerfile"
     },
 
-    // Instala o ambiente pixi automaticamente ao criar o codespace
-    "postCreateCommand": "pixi install",
+    "postCreateCommand": "cd /workspaces/${localWorkspaceFolderBasename} && pixi install",
 
-    // Extensões VS Code instaladas automaticamente
     "customizations": {
         "vscode": {
             "extensions": [
@@ -16,12 +14,12 @@
                 "bernhard-42.ocp-cad-viewer"
             ],
             "settings": {
-                "python.defaultInterpreterPath": "/root/.pixi/envs/default/bin/python"
+                "python.defaultInterpreterPath": "/workspaces/${localWorkspaceFolderBasename}/.pixi/envs/default/bin/python",
+                "jupyter.kernelSpecFindPreferredKernel": true
             }
         }
     },
 
-    // Expõe a porta do OCP CAD Viewer
     "forwardPorts": [3939],
     "portsAttributes": {
         "3939": {
