@@ -1,5 +1,12 @@
-FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
+FROM mcr.microsoft.com/devcontainers/base:jammy
 
-# Install pixi
-RUN curl -fsSL https://pixi.sh/install.sh | bash
-ENV PATH="/root/.pixi/bin:$PATH"
+ARG PIXI_VERSION=v0.42.1
+
+RUN curl -L -o /usr/local/bin/pixi -fsSL --compressed \
+    "https://github.com/prefix-dev/pixi/releases/download/${PIXI_VERSION}/pixi-$(uname -m)-unknown-linux-musl" \
+    && chmod +x /usr/local/bin/pixi \
+    && pixi info
+
+USER vscode
+WORKDIR /home/vscode
+RUN echo 'eval "$(pixi completion -s bash)"' >> /home/vscode/.bashrc

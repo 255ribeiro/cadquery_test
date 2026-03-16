@@ -1,10 +1,15 @@
 {
     "name": "CadQuery para Arquitetos",
     "build": {
-        "dockerfile": "Dockerfile"
+        "dockerfile": "Dockerfile",
+        "context": ".."
     },
 
-    "postCreateCommand": "cd /workspaces/${localWorkspaceFolderBasename} && pixi install",
+    "mounts": [
+        "source=${localWorkspaceFolderBasename}-pixi,target=${containerWorkspaceFolder}/.pixi,type=volume"
+    ],
+
+    "postCreateCommand": "sudo chown vscode .pixi && pixi install && pixi run python -m ipykernel install --user --name cadquery --display-name 'CadQuery (pixi)'",
 
     "customizations": {
         "vscode": {
@@ -14,8 +19,7 @@
                 "bernhard-42.ocp-cad-viewer"
             ],
             "settings": {
-                "python.defaultInterpreterPath": "/workspaces/${localWorkspaceFolderBasename}/.pixi/envs/default/bin/python",
-                "jupyter.kernelSpecFindPreferredKernel": true
+                "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.pixi/envs/default/bin/python"
             }
         }
     },
