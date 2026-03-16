@@ -15,6 +15,9 @@ pip = ">=26.0.1,<27"
 ipywidgets = ">=8.1.8,<9"
 ezdxf = ">=1.4.2,<2"
 
+[target.linux-64.dependencies]
+cadquery = "*"
+
 [pypi-dependencies]
 cadquery = ">=2.3.0, <3"
 jupyter-cadquery = ">=1.0.0, <2"
